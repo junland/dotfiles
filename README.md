@@ -7,7 +7,7 @@ This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bas
 - `dot_bashrc` -> `~/.bashrc`
 - `dot_config/powershell/profile.ps1` -> `~/.config/powershell/profile.ps1` (PowerShell on Unix-like systems)
 
-For Windows PowerShell, the profile path is typically under `~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1`.
+This repository currently targets Bash and PowerShell 7+ (`$PROFILE.CurrentUserCurrentHost`) and does not yet manage the Windows PowerShell 5.1 profile path.
 
 ## Usage
 
