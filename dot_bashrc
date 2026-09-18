@@ -1,0 +1,7 @@
+# Managed by chezmoi
+
+if [[ $- == *i* ]]; then
+  alias ll='ls -alF'
+  alias la='ls -A'
+  alias l='ls -CF'
+fi
