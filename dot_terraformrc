@@ -1,0 +1,7 @@
+# Managed by chezmoi
+
+# Directory to cache Terraform plugins
+plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"
+
+# Disable upgrade and security checks
+disable_checkpoint = true
