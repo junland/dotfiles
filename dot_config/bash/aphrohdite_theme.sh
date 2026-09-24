@@ -52,7 +52,11 @@ __aphrodite_update_prompt_data() {
 }
 
 # Fix PROMPT_COMMAND append logic and prevent duplicate registration
-if [[ ";$PROMPT_COMMAND;" != *";__aphrodite_update_prompt_data;"* ]]; then
+if [[ "$(declare -p PROMPT_COMMAND 2>/dev/null)" == "declare -a"* ]]; then
+    if [[ ! " ${PROMPT_COMMAND[*]} " =~ [[:space:]]__aphrodite_update_prompt_data[[:space:]] ]]; then
+        PROMPT_COMMAND+=(__aphrodite_update_prompt_data)
+    fi
+elif [[ ";$PROMPT_COMMAND;" != *";__aphrodite_update_prompt_data;"* ]]; then
     if [[ -n "$PROMPT_COMMAND" ]]; then
         PROMPT_COMMAND="${PROMPT_COMMAND%;}; __aphrodite_update_prompt_data"
     else
