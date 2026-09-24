@@ -8,6 +8,8 @@ fi
 # Source Aphrodite theme for Bash prompt
 if [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
     source "$HOME/.config/bash/aphrodite_theme.sh"
+elif [ -f "$HOME/.config/bash/aphrohdite_theme.sh" ]; then
+    source "$HOME/.config/bash/aphrohdite_theme.sh"
 fi
 
 # User specific environment
