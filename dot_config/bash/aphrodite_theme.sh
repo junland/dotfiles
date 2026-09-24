@@ -29,11 +29,15 @@ __aphrodite_update_prompt_data() {
     local git_branch
     git_branch=$(git --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null)
     if [[ -n "$git_branch" ]]; then
-        [[ "$git_branch" == "HEAD" ]] && git_branch=$(git --no-optional-locks rev-parse --short HEAD 2>/dev/null)
-        if git --no-optional-locks status --porcelain -u no 2>/dev/null | grep -q .; then
-            __aphrodite_git_color="$__aphrodite_c_dirty"
+        if [[ "$git_branch" == "HEAD" ]]; then
+            git_branch=$(git --no-optional-locks rev-parse --short HEAD 2>/dev/null)
         fi
-        __aphrodite_git="‹${git_branch}›"
+        if [[ -n "$git_branch" ]]; then
+            if git --no-optional-locks status --porcelain -u no 2>/dev/null | grep -q .; then
+                __aphrodite_git_color="$__aphrodite_c_dirty"
+            fi
+            __aphrodite_git="‹${git_branch}›"
+        fi
     fi
 
     # Exit Status Color
