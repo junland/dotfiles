@@ -1,8 +1,7 @@
 # Set up the prompt
-
-autoload -Uz promptinit
-promptinit
-prompt adam1
+if [ -f "$HOME/.config/zsh/aphrohdite_theme.zsh" ]; then
+        source "$HOME/.config/zsh/aphrohdite_theme.zsh"
+fi
 
 setopt histignorealldups sharehistory
 

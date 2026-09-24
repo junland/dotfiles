@@ -10,7 +10,7 @@ __aphrodite_c_reset='\[\e[0m\]'
 __aphrodite_c_white='\[\e[37m\]'
 __aphrodite_c_cyan='\[\e[36m\]'
 __aphrodite_c_grey='\[\e[90m\]'
-__aphrodite_c_blue='\[\e[92m\]'
+__aphrodite_c_blue='\[\e[94m\]'
 __aphrodite_c_clean='\[\e[32m\]'   # Green
 __aphrodite_c_dirty='\[\e[33m\]'   # Yellow
 __aphrodite_c_error='\[\e[31m\]'   # Red
@@ -21,7 +21,7 @@ __aphrodite_update_prompt_data() {
 
     # Virtual Environment
     __aphrodite_venv=''
-    [[ -n "$VIRTUAL_ENV" ]] && __aphrodite_venv="${VIRTUAL_ENV##*/}"
+    [[ -n "$VIRTUAL_ENV" ]] && __aphrodite_venv="[${VIRTUAL_ENV##*/}] "
 
     # Git Status
     __aphrodite_git=''
@@ -29,7 +29,7 @@ __aphrodite_update_prompt_data() {
     local git_branch
     git_branch=$(git --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null)
     if [[ -n "$git_branch" ]]; then
-        if git --no-optional-locks status --porcelain -u no 2>/dev/null | grep -q .; then
+        if git --no-optional-locks status --porcelain 2>/dev/null | grep -q .; then
             __aphrodite_git_color="$__aphrodite_c_dirty"
         fi
         __aphrodite_git="‹${git_branch}›"

@@ -7,8 +7,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 setopt PROMPT_SUBST
 
 aphrodite_get_prompt() {
-        if (( ${+VIRTUAL_ENV} )); then
-                echo -n "%F{7}["$(basename "$VIRTUAL_ENV")"]%f "
+        if [[ -n "$VIRTUAL_ENV" ]]; then
+                echo -n "%F{7}["$(basename "$VIRTUAL_ENV")"] %f"
         fi
 
         echo -n "%F{6}%n"
@@ -21,9 +21,11 @@ aphrodite_get_prompt() {
         local git_branch
         git_branch=$(git --no-optional-locks rev-parse --abbrev-ref HEAD 2> /dev/null)
         if [[ -n "$git_branch" ]]; then
-                local git_status
-                git_status=$(git --no-optional-locks status --porcelain 2> /dev/null | tail -n 1)
-                [[ -n "$git_status" ]] && echo -n "%F{11}" || echo -n "%F{10}"
+                if git --no-optional-locks status --porcelain 2> /dev/null | grep -q .; then
+                        echo -n "%F{11}"
+                else
+                        echo -n "%F{10}"
+                fi
                 echo -n "‹${git_branch}›%f"
         fi
 
