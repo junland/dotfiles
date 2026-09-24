@@ -8,7 +8,9 @@ setopt PROMPT_SUBST
 
 aphrodite_get_prompt() {
         if [[ -n "$VIRTUAL_ENV" ]]; then
-                echo -n "%F{7}["$(basename "$VIRTUAL_ENV")"] %f"
+                local venv_name
+                venv_name="${VIRTUAL_ENV##*/}"
+                echo -n "%F{7}[${venv_name}]%f "
         fi
 
         echo -n "%F{6}%n"

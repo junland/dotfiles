@@ -1,6 +1,6 @@
 # Set up the prompt
-if [ -f "$HOME/.config/zsh/aphrohdite_theme.zsh" ]; then
-        source "$HOME/.config/zsh/aphrohdite_theme.zsh"
+if [ -f "$HOME/.config/zsh/aphrodite_theme.zsh" ]; then
+        source "$HOME/.config/zsh/aphrodite_theme.zsh"
 fi
 
 setopt histignorealldups sharehistory
