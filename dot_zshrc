@@ -3,6 +3,10 @@ if [ -f "$HOME/.config/zsh/aphrodite_theme.zsh" ]; then
         source "$HOME/.config/zsh/aphrodite_theme.zsh"
 elif [ -f "$HOME/.config/zsh/aphrohdite_theme.zsh" ]; then
         source "$HOME/.config/zsh/aphrohdite_theme.zsh"
+else
+        autoload -Uz promptinit
+        promptinit
+        prompt adam1
 fi
 
 setopt histignorealldups sharehistory
