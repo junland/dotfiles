@@ -27,13 +27,15 @@ __aphrodite_update_prompt_data() {
     __aphrodite_git=''
     __aphrodite_git_color="$__aphrodite_c_clean"
     local git_branch
+    local git_status
     git_branch=$(git --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null)
     if [[ -n "$git_branch" ]]; then
         if [[ "$git_branch" == "HEAD" ]]; then
             git_branch=$(git --no-optional-locks rev-parse --short HEAD 2>/dev/null)
         fi
         if [[ -n "$git_branch" ]]; then
-            if git --no-optional-locks status --porcelain -u no 2>/dev/null | grep -q .; then
+            git_status=$(git --no-optional-locks status --porcelain -u no 2>/dev/null)
+            if [[ -n "$git_status" ]]; then
                 __aphrodite_git_color="$__aphrodite_c_dirty"
             fi
             __aphrodite_git="‹${git_branch}›"
@@ -53,7 +55,14 @@ __aphrodite_update_prompt_data() {
 
 # Fix PROMPT_COMMAND append logic and prevent duplicate registration
 if [[ ${PROMPT_COMMAND@a} == *a* ]]; then
-    if [[ ! " ${PROMPT_COMMAND[*]} " =~ [[:space:]]__aphrodite_update_prompt_data[[:space:]] ]]; then
+    __aphrodite_has_prompt_hook=false
+    for __aphrodite_prompt_hook in "${PROMPT_COMMAND[@]}"; do
+        if [[ "$__aphrodite_prompt_hook" == "__aphrodite_update_prompt_data" ]]; then
+            __aphrodite_has_prompt_hook=true
+            break
+        fi
+    done
+    if ! $__aphrodite_has_prompt_hook; then
         PROMPT_COMMAND+=(__aphrodite_update_prompt_data)
     fi
 elif [[ ";$PROMPT_COMMAND;" != *";__aphrodite_update_prompt_data;"* ]]; then
