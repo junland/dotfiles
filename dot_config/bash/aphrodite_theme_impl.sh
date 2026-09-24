@@ -56,7 +56,7 @@ __aphrodite_update_prompt_data() {
 # Fix PROMPT_COMMAND append logic and prevent duplicate registration
 __aphrodite_prompt_command_decl=''
 if __aphrodite_prompt_command_decl=$(declare -p PROMPT_COMMAND 2>/dev/null); then
-    if [[ "$__aphrodite_prompt_command_decl" == "declare -a"* ]]; then
+    if [[ "$__aphrodite_prompt_command_decl" == "declare -a"* || "$__aphrodite_prompt_command_decl" == "declare -A"* ]]; then
         __aphrodite_has_prompt_hook=false
         for __aphrodite_prompt_hook in "${PROMPT_COMMAND[@]}"; do
             if [[ "$__aphrodite_prompt_hook" == "__aphrodite_update_prompt_data" ]]; then
