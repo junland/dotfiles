@@ -92,7 +92,13 @@ if $__aphrodite_prompt_command_arrays_supported && __aphrodite_prompt_command_de
         fi
     fi
 else
-    PROMPT_COMMAND="__aphrodite_update_prompt_data"
+    if [[ ";$PROMPT_COMMAND;" != *";__aphrodite_update_prompt_data;"* ]]; then
+        if [[ -n "$PROMPT_COMMAND" ]]; then
+            PROMPT_COMMAND="${PROMPT_COMMAND%;}; __aphrodite_update_prompt_data"
+        else
+            PROMPT_COMMAND="__aphrodite_update_prompt_data"
+        fi
+    fi
 fi
 unset __aphrodite_prompt_command_arrays_supported __aphrodite_prompt_command_decl
 
