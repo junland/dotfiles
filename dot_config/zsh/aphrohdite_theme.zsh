@@ -21,7 +21,7 @@ aphrodite_get_prompt() {
         local git_branch
         git_branch=$(git --no-optional-locks rev-parse --abbrev-ref HEAD 2> /dev/null)
         if [[ -n "$git_branch" ]]; then
-                if git --no-optional-locks status --porcelain 2> /dev/null | grep -q .; then
+                if git --no-optional-locks status --porcelain -u no 2> /dev/null | grep -q .; then
                         echo -n "%F{11}"
                 else
                         echo -n "%F{10}"
