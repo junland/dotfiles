@@ -81,7 +81,11 @@ if __aphrodite_prompt_command_decl=$(declare -p PROMPT_COMMAND 2>/dev/null); the
         fi
         unset __aphrodite_has_prompt_hook __aphrodite_prompt_hook
     elif [[ ";$PROMPT_COMMAND;" != *";__aphrodite_update_prompt_data;"* ]]; then
-        PROMPT_COMMAND="${PROMPT_COMMAND%;}; __aphrodite_update_prompt_data"
+        if [[ -n "$PROMPT_COMMAND" ]]; then
+            PROMPT_COMMAND="${PROMPT_COMMAND%;}; __aphrodite_update_prompt_data"
+        else
+            PROMPT_COMMAND="__aphrodite_update_prompt_data"
+        fi
     fi
 else
     PROMPT_COMMAND="__aphrodite_update_prompt_data"
