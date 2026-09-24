@@ -34,7 +34,7 @@ __aphrodite_update_prompt_data() {
             git_branch=$(git --no-optional-locks rev-parse --short HEAD 2>/dev/null)
         fi
         if [[ -n "$git_branch" ]]; then
-            git_status=$(git --no-optional-locks status --porcelain -u no 2>/dev/null)
+            IFS= read -r git_status < <(git --no-optional-locks status --porcelain -u no 2>/dev/null)
             if [[ -n "$git_status" ]]; then
                 __aphrodite_git_color="$__aphrodite_c_dirty"
             fi
