@@ -5,7 +5,7 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
-# Source Aphrodite theme for Bash prompt
+# Set up the prompt
 if [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
     source "$HOME/.config/bash/aphrodite_theme.sh"
 elif [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
