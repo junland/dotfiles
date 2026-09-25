@@ -1,13 +1,17 @@
 # dotfiles
 
-This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bash and PowerShell dotfiles.
+This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bash, Zsh, and PowerShell dotfiles.
 
 ## Managed files
 
 - `dot_bashrc` -> `~/.bashrc`
+- `dot_zshrc` -> `~/.zshrc`
+- `dot_config/bash/aphrodite_theme_impl.sh` -> `~/.config/bash/aphrodite_theme_impl.sh`
+- `dot_config/bash/aphrodite_theme.sh` -> `~/.config/bash/aphrodite_theme.sh`
+- `dot_config/zsh/aphrodite_theme.zsh` -> `~/.config/zsh/aphrodite_theme.zsh`
 - `dot_config/powershell/profile.ps1` -> `~/.config/powershell/profile.ps1` (PowerShell on Unix-like systems)
 
-This repository currently targets Bash and PowerShell via `~/.config/powershell/profile.ps1` and does not yet manage the Windows PowerShell 5.1 profile path.
+This repository currently targets Bash, Zsh, and PowerShell via `~/.config/powershell/profile.ps1` and does not yet manage the Windows PowerShell 5.1 profile path.
 
 ## Usage
 
