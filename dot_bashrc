@@ -8,8 +8,8 @@ fi
 # Source Aphrodite theme for Bash prompt
 if [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
     source "$HOME/.config/bash/aphrodite_theme.sh"
-elif [ -f "$HOME/.config/bash/aphrohdite_theme.sh" ]; then
-    source "$HOME/.config/bash/aphrohdite_theme.sh"
+elif [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
+    source "$HOME/.config/bash/aphrodite_theme.sh"
 fi
 
 # User specific environment
@@ -26,9 +26,14 @@ HISTSIZE=3000
 SAVEHIST=3000
 HISTFILE=~/.bash_history
 
-# GOPATH and Go binaries
+# Go environment
 export GOPATH="$HOME/.local/share/go"
 export PATH="$GOPATH/bin:$PATH"
+
+# Rust and Cargo environment
+export CARGO_HOME="$HOME/.local/share/cargo"
+export RUSTUP_HOME="$HOME/.local/share/rustup"
+export PATH="$CARGO_HOME/bin:$PATH"
 
 # XDG configuration directories
 export XDG_CONFIG_HOME="$HOME/.config"
