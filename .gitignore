@@ -1,0 +1,13 @@
+node_modules/
+
+# Don't include archive files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.bz2
+*.xz
+*.tar.bz2
+*.tar.xz
