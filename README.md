@@ -13,6 +13,11 @@ This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bas
 
 This repository currently targets Bash, Zsh, and PowerShell via `~/.config/powershell/profile.ps1` and does not yet manage the Windows PowerShell 5.1 profile path.
 
+## XDG directory structure
+
+- `~/.config/` stores configuration files, such as settings, themes, and preferences, that dictate how an application behaves.
+- `~/.local/` stores application data and state, such as databases, logs, local binaries, and game saves, that applications generate or require to run.
+
 ## Usage
 
 ```bash
