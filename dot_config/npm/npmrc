@@ -1,2 +1,8 @@
 prefix=${HOME}/.local
 cache=${HOME}/.cache/npm
+
+# Disable funding message
+fund=false
+
+# Automatically run 'npm audit' after running 'npm install'
+audit=true
