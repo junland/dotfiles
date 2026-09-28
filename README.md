@@ -6,7 +6,7 @@ This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bas
 
 - `dot_bashrc` -> `~/.bashrc`
 - `dot_zshrc` -> `~/.zshrc`
-- `dot_config/bash/aphrodite_theme_impl.sh` -> `~/.config/bash/aphrodite_theme_impl.sh`
+- `dot_terraformrc` -> `~/.terraformrc`
 - `dot_config/bash/aphrodite_theme.sh` -> `~/.config/bash/aphrodite_theme.sh`
 - `dot_config/zsh/aphrodite_theme.zsh` -> `~/.config/zsh/aphrodite_theme.zsh`
 - `dot_config/npm/npmrc` -> `~/.config/npm/npmrc`
