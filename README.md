@@ -6,12 +6,18 @@ This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bas
 
 - `dot_bashrc` -> `~/.bashrc`
 - `dot_zshrc` -> `~/.zshrc`
-- `dot_config/bash/aphrodite_theme_impl.sh` -> `~/.config/bash/aphrodite_theme_impl.sh`
+- `dot_terraformrc` -> `~/.terraformrc`
 - `dot_config/bash/aphrodite_theme.sh` -> `~/.config/bash/aphrodite_theme.sh`
 - `dot_config/zsh/aphrodite_theme.zsh` -> `~/.config/zsh/aphrodite_theme.zsh`
+- `dot_config/npm/npmrc` -> `~/.config/npm/npmrc`
 - `dot_config/powershell/profile.ps1` -> `~/.config/powershell/profile.ps1` (PowerShell on Unix-like systems)
 
 This repository currently targets Bash, Zsh, and PowerShell via `~/.config/powershell/profile.ps1` and does not yet manage the Windows PowerShell 5.1 profile path.
+
+## XDG directory structure
+
+- `~/.config/` stores configuration files, such as settings, themes, and preferences, that dictate how an application behaves.
+- `~/.local/` stores application data and state, such as databases, logs, local binaries, and game saves, that applications generate or require to run.
 
 ## Usage
 
