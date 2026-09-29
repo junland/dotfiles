@@ -1,0 +1,56 @@
+# Git branch
+parse_git_branch() {
+command -v git >/dev/null 2>&1 || return
+git symbolic-ref --short HEAD 2>/dev/null | sed 's/^/ [/;s/$/]/'
+}
+
+# Set colors
+if [ -t 1 ]; then
+GREEN='\033[0;32m'
+BLUE='\033[1;34m'
+CYAN='\033[0;36m'
+RED='\033[1;31m'
+RESET='\033[0m'
+fi
+# Root/User styling
+if [ "$(id -u)" -eq 0 ]; then
+USER_COLOR="$RED"
+SYMBOL="#"
+else
+USER_COLOR="$BLUE"
+SYMBOL="➜"
+fi
+
+# Bash
+if [ -n "$BASH_VERSION" ]; then
+VIRTUAL_ENV_DISABLE_PROMPT=1
+PS1="\[\e]0;\u@\h: \w\a\]"
+PS1+='\['"$GREEN"'\]┌──'
+PS1+='${VIRTUAL_ENV:+(\[\e[1m\]$(basename "$VIRTUAL_ENV")\['"$GREEN"'\])}'
+PS1+='(\['"$USER_COLOR"'\]\u@\h\['"$GREEN"'\])-[\[\e[1m\]\w\['"$GREEN"'\]]'
+PS1+='\['"$CYAN"'\]$(parse_git_branch)'
+PS1+='\n'
+PS1+='\['"$GREEN"'\]└─'
+PS1+='\['"$USER_COLOR"'\]'"$SYMBOL "
+PS1+='\['"$RESET"'\]'
+PROMPT_COMMAND='echo'
+
+
+# Zsh
+elif [ -n "$ZSH_VERSION" ]; then
+setopt PROMPT_SUBST
+precmd() {
+echo
+print -Pn "\e]0;%n@%m: %~\a"
+}
+PROMPT="%F{green}┌──"
+PROMPT+='${VIRTUAL_ENV:+(%B${VIRTUAL_ENV:t}%b)}'
+PROMPT+="(%F{blue}%n@%m%F{green})-[%B%~%b]"
+PROMPT+="%F{cyan}\$(parse_git_branch)"
+PROMPT+=$'\n'
+if [ "$(id -u)" -eq 0 ]; then
+PROMPT+="%F{red}└─# %f"
+else
+PROMPT+="%F{green}└─%F{blue}➜ %f"
+fi
+fi
