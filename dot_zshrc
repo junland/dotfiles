@@ -1,5 +1,8 @@
 # Managed by chezmoi
 
+# Source the default prompt
+source "$HOME/.config/shells/default_prompt"
+
 # Set up the prompt
 if [ -f "$HOME/.config/zsh/aphrodite_theme.zsh" ]; then
         source "$HOME/.config/zsh/aphrodite_theme.zsh"

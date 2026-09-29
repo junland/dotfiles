@@ -1,5 +1,8 @@
 # Managed by chezmoi
 
+# Source the default prompt
+source "$HOME/.config/shells/default_prompt"
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
         . /etc/bashrc
