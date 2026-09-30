@@ -1,17 +1,8 @@
 # Managed by chezmoi
 
-# Source the default prompt
-source "$HOME/.config/shells/default_prompt"
-
-# Set up the prompt
-if [ -f "$HOME/.config/zsh/aphrodite_theme.zsh" ]; then
-        source "$HOME/.config/zsh/aphrodite_theme.zsh"
-elif [ -f "$HOME/.config/zsh/aphrodite_theme.zsh" ]; then
-        source "$HOME/.config/zsh/aphrodite_theme.zsh"
-else
-        autoload -Uz promptinit
-        promptinit
-        prompt adam1
+# If the .shell_prompt file exists, source it
+if [ -f "$HOME/.shell_prompt" ]; then
+    source "$HOME/.shell_prompt"
 fi
 
 setopt histignorealldups sharehistory

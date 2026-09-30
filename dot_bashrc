@@ -8,11 +8,9 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
-# Set up the prompt
-if [ -f "$HOME/.config/shells/default_prompt.sh" ]; then
-    source "$HOME/.config/shells/default_prompt.sh"
-elif [ -f "$HOME/.config/shells/aphrodite_theme.sh" ]; then
-    source "$HOME/.config/shells/aphrodite_theme.sh"
+# If the .shell_prompt file exists, source it
+if [ -f "$HOME/.shell_prompt" ]; then
+    source "$HOME/.shell_prompt"
 fi
 
 # User specific environment
