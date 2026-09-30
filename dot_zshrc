@@ -15,11 +15,6 @@ if [ -f "$HOME/.config/shells/dot_env" ]; then
     source "$HOME/.config/shells/dot_env"
 fi
 
-# User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-
 # Add local bin to PATH if it exists
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
