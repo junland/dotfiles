@@ -1,56 +1,81 @@
-# Git branch
+# ------------------------------------------------------------------------------
+# Git Branch Helper
+# ------------------------------------------------------------------------------
 parse_git_branch() {
-command -v git >/dev/null 2>&1 || return
-git symbolic-ref --short HEAD 2>/dev/null | sed 's/^/ [/;s/$/]/'
+    command -v git >/dev/null 2>&1 || return
+    
+    # Get current branch or detached HEAD state (short hash/tag)
+    local branch
+    branch=$(git symbolic-ref --short -q HEAD 2>/dev/null) \
+        || branch=$(git rev-parse --short HEAD 2>/dev/null) \
+        || return
+
+    printf ' [%s]' "$branch"
 }
 
-# Set colors
-if [ -t 1 ]; then
-GREEN='\033[0;32m'
-BLUE='\033[1;34m'
-CYAN='\033[0;36m'
-RED='\033[1;31m'
-RESET='\033[0m'
-fi
-# Root/User styling
-if [ "$(id -u)" -eq 0 ]; then
-USER_COLOR="$RED"
-SYMBOL="#"
-else
-USER_COLOR="$BLUE"
-SYMBOL="➜"
-fi
+# Disable virtualenv's default prompt modification so we can handle it manually
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# Bash
+# ------------------------------------------------------------------------------
+# Bash Configuration
+# ------------------------------------------------------------------------------
 if [ -n "$BASH_VERSION" ]; then
-VIRTUAL_ENV_DISABLE_PROMPT=1
-PS1="\[\e]0;\u@\h: \w\a\]"
-PS1+='\['"$GREEN"'\]┌──'
-PS1+='${VIRTUAL_ENV:+(\[\e[1m\]$(basename "$VIRTUAL_ENV")\['"$GREEN"'\])}'
-PS1+='(\['"$USER_COLOR"'\]\u@\h\['"$GREEN"'\])-[\[\e[1m\]\w\['"$GREEN"'\]]'
-PS1+='\['"$CYAN"'\]$(parse_git_branch)'
-PS1+='\n'
-PS1+='\['"$GREEN"'\]└─'
-PS1+='\['"$USER_COLOR"'\]'"$SYMBOL "
-PS1+='\['"$RESET"'\]'
-PROMPT_COMMAND='echo'
+    # Terminal ANSI Colors (wrapped in \[ \] for Bash prompt tracking)
+    if [ -t 1 ]; then
+        C_GREEN='\[\e[0;32m\]'
+        C_BLUE='\[\e[1;34m\]'
+        C_CYAN='\[\e[0;36m\]'
+        C_RED='\[\e[1;31m\]'
+        C_BOLD='\[\e[1m\]'
+        C_RESET='\[\e[0m\]'
+    else
+        C_GREEN='' C_BLUE='' C_CYAN='' C_RED='' C_BOLD='' C_RESET=''
+    fi
 
+    # Root / User styling
+    if [ "$EUID" -eq 0 ]; then
+        U_COLOR="$C_RED"
+        SYMBOL="# "
+    else
+        U_COLOR="$C_BLUE"
+        SYMBOL="➜ "
+    fi
 
-# Zsh
-elif [ -n "$ZSH_VERSION" ]; then
-setopt PROMPT_SUBST
-precmd() {
-echo
-print -Pn "\e]0;%n@%m: %~\a"
-}
-PROMPT="%F{green}┌──"
-PROMPT+='${VIRTUAL_ENV:+(%B${VIRTUAL_ENV:t}%b)}'
-PROMPT+="(%F{blue}%n@%m%F{green})-[%B%~%b]"
-PROMPT+="%F{cyan}\$(parse_git_branch)"
-PROMPT+=$'\n'
-if [ "$(id -u)" -eq 0 ]; then
-PROMPT+="%F{red}└─# %f"
-else
-PROMPT+="%F{green}└─%F{blue}➜ %f"
+    # Window title update on pre-prompt execution
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}: ${PWD}\007"'
+
+    # Build PS1 string
+    PS1="${C_GREEN}┌──${C_RESET}"
+    PS1+='${VIRTUAL_ENV:+'"${C_BOLD}"'('"${C_RESET}"'${VIRTUAL_ENV##*/}'"${C_BOLD}"') '"${C_GREEN}"'}'
+    PS1+="(${U_COLOR}\u@\h${C_GREEN})-[${C_BOLD}\w${C_GREEN}]"
+    PS1+="${C_CYAN}\$(parse_git_branch)${C_RESET}"
+    PS1+="\n"
+    PS1+="${C_GREEN}└─${U_COLOR}${SYMBOL} ${C_RESET}"
 fi
+
+# ------------------------------------------------------------------------------
+# Zsh Configuration
+# ------------------------------------------------------------------------------
+if [ -n "$ZSH_VERSION" ]; then
+    setopt PROMPT_SUBST
+
+    # Window title update before each prompt
+    precmd() {
+        print -Pn "\e]0;%n@%m: %~\a"
+    }
+
+    # Root / User symbol
+    if [ "$EUID" -eq 0 ]; then
+        U_SYMBOL="%F{red}#%f "
+    else
+        U_SYMBOL="%F{blue}➜%f "
+    fi
+
+    # Build PROMPT string using Zsh native prompt expansions
+    PROMPT='%F{green}┌──%f'
+    PROMPT+='${VIRTUAL_ENV:+(%B${VIRTUAL_ENV:t}%b) }'
+    PROMPT+='(%F{blue}%n@%m%F{green})-[%B%~%b]'
+    PROMPT+='%F{cyan}$(parse_git_branch)%f'
+    PROMPT+=$'\n'
+    PROMPT+="%F{green}└─${U_SYMBOL} "
 fi

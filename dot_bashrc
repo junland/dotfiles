@@ -9,10 +9,10 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Set up the prompt
-if [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
-    source "$HOME/.config/bash/aphrodite_theme.sh"
-elif [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
-    source "$HOME/.config/bash/aphrodite_theme.sh"
+if [ -f "$HOME/.config/shells/default_prompt.sh" ]; then
+    source "$HOME/.config/shells/default_prompt.sh"
+elif [ -f "$HOME/.config/shells/aphrodite_theme.sh" ]; then
+    source "$HOME/.config/shells/aphrodite_theme.sh"
 fi
 
 # User specific environment
