@@ -7,14 +7,6 @@ fi
 
 setopt histignorealldups sharehistory
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-
-# Keep 3000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=3000
-SAVEHIST=3000
-HISTFILE=~/.zsh_history
-
 # User specific environment
 if [[ "$PATH" != *"$HOME/.local/bin:$HOME/bin:"* ]]; then
     export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
@@ -24,24 +16,12 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Go environment
-export GOPATH="$HOME/.local/share/go"
-export PATH="$GOPATH/bin:$PATH"
+# Keep 3000 lines of history within the shell and save it to ~/.zsh_history:
+HISTSIZE=3000
+SAVEHIST=3000
+HISTFILE=~/.zsh_history
 
-# Rust and Cargo environment
-export CARGO_HOME="$HOME/.local/share/cargo"
-export RUSTUP_HOME="$HOME/.local/share/rustup"
-export PATH="$CARGO_HOME/bin:$PATH"
-
-# XDG configuration directories
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-
-# Homebrew
-export HOMEBREW_NO_ENV_HINTS=1
-
-# Use modern completion system
+# Setup completion system
 autoload -Uz compinit
 compinit
 
@@ -62,5 +42,3 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# NPM configuration
-export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"

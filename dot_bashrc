@@ -13,6 +13,11 @@ if [ -f "$HOME/.shell_prompt" ]; then
     source "$HOME/.shell_prompt"
 fi
 
+# Source the user-specific environment variables from the dot_env file
+if [ -f "$HOME/.config/shells/dot_env" ]; then
+    source "$HOME/.config/shells/dot_env"
+fi
+
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
@@ -27,24 +32,6 @@ HISTSIZE=3000
 SAVEHIST=3000
 HISTFILE=~/.bash_history
 
-# Go environment
-export GOPATH="$HOME/.local/share/go"
-export PATH="$GOPATH/bin:$PATH"
-
-# Rust and Cargo environment
-export CARGO_HOME="$HOME/.local/share/cargo"
-export RUSTUP_HOME="$HOME/.local/share/rustup"
-export PATH="$CARGO_HOME/bin:$PATH"
-
-# XDG configuration directories
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-
-# Homebrew 
-export HOMEBREW_NO_ENV_HINTS=1
-
 # Setup program completion
 command -v aws_completer > /dev/null 2>&1 && source <(complete -C aws_completer aws)
 command -v fly > /dev/null 2>&1 && source <(fly completion --shell bash)
@@ -53,10 +40,3 @@ command -v glab > /dev/null 2>&1 && source <(glab completion -s bash)
 command -v helm > /dev/null 2>&1 && source <(helm completion bash)
 command -v kubectl > /dev/null 2>&1 && source <(kubectl completion bash)
 command -v uv > /dev/null 2>&1 && source <(uv generate-shell-completion bash)
-
-# Aliases
-alias ansible-local='ansible -i "localhost," -c local'
-alias ansible-playbook-local='ansible-playbook -i "localhost," -c local'
-alias ansible-playbook-localhost='ansible-playbook-local'
-alias ll='ls -alF'
-alias la='ls -A'
