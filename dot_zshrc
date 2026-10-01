@@ -10,14 +10,14 @@ if [ -f "$HOME/.shell_prompt" ]; then
     source "$HOME/.shell_prompt"
 fi
 
-# Source the user-specific environment variables from the dot_env file
-if [ -f "$HOME/.config/shells/dot_env" ]; then
-    source "$HOME/.config/shells/dot_env"
-fi
-
 # Add local bin to PATH if it exists
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
+fi
+
+# Source the user-specific environment variables from the .env file
+if [ -f "$HOME/.env" ]; then
+    source "$HOME/.env"
 fi
 
 # Keep 3000 lines of history within the shell and save it to ~/.zsh_history:
