@@ -1,8 +1,5 @@
 # Managed by chezmoi
 
-# Installation prefix for npm
-prefix=${HOME}/.local
-
 # Cache directory for npm
 cache=${HOME}/.cache/npm
 

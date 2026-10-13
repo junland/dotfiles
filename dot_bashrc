@@ -5,44 +5,29 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
-# Set up the prompt
-if [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
-    source "$HOME/.config/bash/aphrodite_theme.sh"
-elif [ -f "$HOME/.config/bash/aphrodite_theme.sh" ]; then
-    source "$HOME/.config/bash/aphrodite_theme.sh"
+# If the .shell_prompt file exists, source it
+if [ -f "$HOME/.shell_prompt" ]; then
+    source "$HOME/.shell_prompt"
 fi
 
-# User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-
+# Add local bin to PATH if it exists
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Source the user-specific environment variables from the .env file
+if [ -f "$HOME/.env" ]; then
+    source "$HOME/.env"
+fi
+
+for file in $HOME/.env*[-_]*; do
+    [[ -f "$file" ]] && source "$file"
+done
+
 # Keep 3000 lines of history within the shell and save it to ~/.bash_history:
 HISTSIZE=3000
 SAVEHIST=3000
-HISTFILE=~/.bash_history
-
-# Go environment
-export GOPATH="$HOME/.local/share/go"
-export PATH="$GOPATH/bin:$PATH"
-
-# Rust and Cargo environment
-export CARGO_HOME="$HOME/.local/share/cargo"
-export RUSTUP_HOME="$HOME/.local/share/rustup"
-export PATH="$CARGO_HOME/bin:$PATH"
-
-# XDG configuration directories
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-
-# Homebrew 
-export HOMEBREW_NO_ENV_HINTS=1
+HISTFILE="$HOME/.bash_history"
 
 # Setup program completion
 command -v aws_completer > /dev/null 2>&1 && source <(complete -C aws_completer aws)
@@ -52,10 +37,3 @@ command -v glab > /dev/null 2>&1 && source <(glab completion -s bash)
 command -v helm > /dev/null 2>&1 && source <(helm completion bash)
 command -v kubectl > /dev/null 2>&1 && source <(kubectl completion bash)
 command -v uv > /dev/null 2>&1 && source <(uv generate-shell-completion bash)
-
-# Aliases
-alias ansible-local='ansible -i "localhost," -c local'
-alias ansible-playbook-local='ansible-playbook -i "localhost," -c local'
-alias ansible-playbook-localhost='ansible-playbook-local'
-alias ll='ls -alF'
-alias la='ls -A'
