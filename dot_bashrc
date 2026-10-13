@@ -20,6 +20,10 @@ if [ -f "$HOME/.env" ]; then
     source "$HOME/.env"
 fi
 
+for file in $HOME/.env*[-_]*; do
+    [[ -f "$file" ]] && source "$file"
+done
+
 # Keep 3000 lines of history within the shell and save it to ~/.bash_history:
 HISTSIZE=3000
 SAVEHIST=3000
