@@ -40,7 +40,7 @@ if [ -n "$BASH_VERSION" ]; then
         SYMBOL="# "
     else
         U_COLOR="$C_BLUE"
-        SYMBOL="➜ "
+        SYMBOL="$ "
     fi
 
     # Window title update on pre-prompt execution
