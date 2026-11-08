@@ -15,6 +15,8 @@ This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bas
 On Windows, `run_after_powershell-profile.ps1.tmpl` copies the PowerShell profile
 into the user's PowerShell profile path, typically located at `$PROFILE`.
 
+If additional environment variables are needed, they can be added with files in the home directory matching the pattern `~/.env*[-_]*`. These files will also be sourced automatically.
+
 ## XDG directory structure
 
 - `~/.config/` stores configuration files, such as settings, themes, and preferences, that dictate how an application behaves.

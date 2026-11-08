@@ -20,6 +20,7 @@ if [ -f "$HOME/.env" ]; then
     source "$HOME/.env"
 fi
 
+# Source all environment variable files matching the pattern .env*[-_]* in the home directory
 for file in $HOME/.env*[-_]*; do
     [[ -f "$file" ]] && source "$file"
 done
