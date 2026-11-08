@@ -1,0 +1,14 @@
+{{ if eq .chezmoi.os "windows" -}}
+$ErrorActionPreference = 'Stop'
+
+# Get the profile path for the user
+$profile = $PROFILE
+
+# Make sure the profile directory existsm, create it if it doesn't
+$profileDir = Split-Path -Parent $profile
+New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
+
+# Copy profile.ps1 from the source directory to the user's profile path
+$source = '{{ joinPath .chezmoi.sourceDir "dot_config" "powershell" "profile.ps1" | replace "'" "''" }}'
+Copy-Item -LiteralPath $source -Destination $profile -Force
+{{ end -}}
