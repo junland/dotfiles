@@ -1,0 +1,5 @@
+dot_bashrc text eol=lf
+dot_zshrc text eol=lf
+dot_env text eol=lf
+dot_shell_prompt text eol=lf
+tests/*.sh text eol=lf

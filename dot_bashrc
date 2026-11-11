@@ -21,7 +21,7 @@ if [ -f "$HOME/.env" ]; then
 fi
 
 # Source all environment variable files matching the pattern .env*[-_]* in the home directory
-for file in $HOME/.env*[-_]*; do
+for file in "$HOME"/.env*[-_]*; do
     [[ -f "$file" ]] && source "$file"
 done
 
@@ -31,7 +31,7 @@ SAVEHIST=3000
 HISTFILE="$HOME/.bash_history"
 
 # Setup program completion
-command -v aws_completer > /dev/null 2>&1 && source <(complete -C aws_completer aws)
+command -v aws_completer > /dev/null 2>&1 && complete -C aws_completer aws
 command -v fly > /dev/null 2>&1 && source <(fly completion --shell bash)
 command -v gh > /dev/null 2>&1 && source <(gh completion -s bash)
 command -v glab > /dev/null 2>&1 && source <(glab completion -s bash)

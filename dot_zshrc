@@ -1,10 +1,5 @@
 # Managed by chezmoi
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-fi
-
 # If the .shell_prompt file exists, source it
 if [ -f "$HOME/.shell_prompt" ]; then
     source "$HOME/.shell_prompt"
@@ -21,7 +16,7 @@ if [ -f "$HOME/.env" ]; then
 fi
 
 # Source all environment variable files matching the pattern .env*[-_]* in the home directory
-for file in $HOME/.env*[-_]*; do
+for file in "$HOME"/.env*[-_]*(N); do
     [[ -f "$file" ]] && source "$file"
 done
 
@@ -36,7 +31,7 @@ autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
 
 # Configure Zsh completion behavior, matching, menus, prompts, and process listing
-eval "$(dircolors -b)"
+command -v dircolors > /dev/null 2>&1 && eval "$(dircolors -b)"
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -58,7 +53,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # Setup program completion
-command -v aws_completer > /dev/null 2>&1 && source <(complete -C aws_completer aws)
+command -v aws_completer > /dev/null 2>&1 && complete -C aws_completer aws
 command -v fly > /dev/null 2>&1 && source <(fly completion --shell zsh)
 command -v gh > /dev/null 2>&1 && source <(gh completion -s zsh)
 command -v glab > /dev/null 2>&1 && source <(glab completion -s zsh)

@@ -18,7 +18,8 @@ using PowerShell 7 if available or Windows PowerShell otherwise. The existing
 file at that path is overwritten on apply. An existing all-hosts profile still
 runs first and is not removed.
 
-If additional environment variables are needed, they can be added with files in the home directory matching the pattern `~/.env*[-_]*`. These files will also be sourced automatically.
+Bash and Zsh also source additional shell files in the home directory matching
+`~/.env*[-_]*`. PowerShell does not source these shell-specific files.
 
 ## XDG directory structure
 
