@@ -13,7 +13,10 @@ This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bas
 - `dot_env` -> `~/.env`
 
 On Windows, `run_after_powershell-profile.ps1.tmpl` copies the PowerShell profile
-into the user's PowerShell profile path, typically located at `$PROFILE`.
+to the current user's console-host profile (`$PROFILE.CurrentUserCurrentHost`),
+using PowerShell 7 if available or Windows PowerShell otherwise. The existing
+file at that path is overwritten on apply. An existing all-hosts profile still
+runs first and is not removed.
 
 If additional environment variables are needed, they can be added with files in the home directory matching the pattern `~/.env*[-_]*`. These files will also be sourced automatically.
 
