@@ -11,8 +11,10 @@ function ansible-playbook-local { ansible-playbook -i 'localhost,' -c local @arg
 Set-Alias ansible-playbook-localhost ansible-playbook-local
 
 # Elevation
-if ((Get-Command sudo.exe -ErrorAction SilentlyContinue) -and (Get-Command gsudo.exe -ErrorAction SilentlyContinue)) {
-    function sudo { & gsudo.exe @args }
+if (Get-Command sudo.exe -ErrorAction SilentlyContinue) {
+    function sudo {
+        & gsudo @args
+    }
 }
 
 # Environment
