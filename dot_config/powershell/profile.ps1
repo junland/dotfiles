@@ -12,9 +12,7 @@ Set-Alias ansible-playbook-localhost ansible-playbook-local
 
 # Elevation
 if (Get-Command sudo.exe -ErrorAction SilentlyContinue) {
-    function sudo {
-        & gsudo @args
-    }
+    Set-Alias gsudo sudo.exe
 }
 
 # Environment
