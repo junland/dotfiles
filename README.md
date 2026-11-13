@@ -5,12 +5,12 @@ This repository is a [chezmoi](https://www.chezmoi.io/) source directory for Bas
 ## Managed files
 
 - `dot_bashrc` -> `~/.bashrc`
-- `dot_zshrc` -> `~/.zshrc`
-- `dot_terraformrc` -> `~/.terraformrc`
-- `dot_shell_prompt` -> `~/.shell_prompt`
 - `dot_config/npm/npmrc` -> `~/.config/npm/npmrc`
 - `dot_config/powershell/profile.ps1` -> `~/.config/powershell/profile.ps1` (PowerShell on Unix-like systems)
 - `dot_env` -> `~/.env`
+- `dot_shell_prompt` -> `~/.shell_prompt`
+- `dot_terraformrc` -> `~/.terraformrc`
+- `dot_zshrc` -> `~/.zshrc`
 
 On Windows, `run_after_powershell-profile.ps1.tmpl` copies the PowerShell profile
 to the current user's console-host profile (`$PROFILE.CurrentUserCurrentHost`),
