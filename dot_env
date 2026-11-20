@@ -24,5 +24,7 @@ export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
 alias ansible-local='ansible -i "localhost," -c local'
 alias ansible-playbook-local='ansible-playbook -i "localhost," -c local'
 alias ansible-playbook-localhost='ansible-playbook-local'
-alias ll='ls -alF'
+alias ls='ls --color=auto'
 alias la='ls -A'
+alias ll='ls -alF'
+alias skills='npx skills'
