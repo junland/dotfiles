@@ -1,0 +1,7 @@
+# Managed by chezmoi
+
+{{ if ne .chezmoi.os "windows" -}}
+cache=${HOME}/.cache/npm
+{{ end }}
+# Disable funding message
+fund=false

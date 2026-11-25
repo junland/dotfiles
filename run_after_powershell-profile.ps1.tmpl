@@ -1,7 +1,6 @@
 {{ if eq .chezmoi.os "windows" -}}
 $ErrorActionPreference = 'Stop'
 
-$source = '{{ joinPath .chezmoi.sourceDir "dot_config" "powershell" "profile.ps1" | replace "'" "''" }}'
 foreach ($shell in 'pwsh', 'powershell') {
 	$command = Get-Command $shell -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
 	if ($command) {
@@ -9,8 +8,10 @@ foreach ($shell in 'pwsh', 'powershell') {
 		if ($LASTEXITCODE -ne 0 -or -not $profilePath) {
 			throw "Could not determine the profile path for $shell"
 		}
-		New-Item -ItemType Directory -Path (Split-Path -Parent $profilePath) -Force | Out-Null
-		Copy-Item -LiteralPath $source -Destination $profilePath -Force
+		if (-not (Test-Path -LiteralPath $profilePath)) {
+			New-Item -ItemType Directory -Path (Split-Path -Parent $profilePath) -Force | Out-Null
+			New-Item -ItemType File -Path $profilePath -Value '. "$HOME/.config/powershell/dotfiles.ps1"' | Out-Null
+		}
 		break
 	}
 }
