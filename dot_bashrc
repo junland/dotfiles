@@ -1,40 +1,11 @@
-# Managed by chezmoi
+case $- in *i*) ;; *) return 0 ;; esac
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
+if [ -r /etc/bashrc ]; then . /etc/bashrc; fi
+. "$HOME/.config/shell/env"
+if [ -r "$HOME/.shell_prompt" ]; then . "$HOME/.shell_prompt"; fi
+
+: "${HISTSIZE:=3000}" "${HISTFILESIZE:=3000}" "${HISTFILE:=$HOME/.bash_history}"
+if command -v aws_completer >/dev/null && ! complete -p aws >/dev/null 2>&1; then
+    complete -C aws_completer aws
 fi
-
-# If the .shell_prompt file exists, source it
-if [ -f "$HOME/.shell_prompt" ]; then
-    source "$HOME/.shell_prompt"
-fi
-
-# Add local bin to PATH if it exists
-if [ -d "$HOME/.local/bin" ]; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
-# Source the user-specific environment variables from the .env file
-if [ -f "$HOME/.env" ]; then
-    source "$HOME/.env"
-fi
-
-# Source all environment variable files matching the pattern .env*[-_]* in the home directory
-for file in "$HOME"/.env*[-_]*; do
-    [[ -f "$file" ]] && source "$file"
-done
-
-# Keep 3000 lines of history within the shell and save it to ~/.bash_history:
-HISTSIZE=3000
-SAVEHIST=3000
-HISTFILE="$HOME/.bash_history"
-
-# Setup program completion
-command -v aws_completer > /dev/null 2>&1 && complete -C aws_completer aws
-command -v fly > /dev/null 2>&1 && source <(fly completion --shell bash)
-command -v gh > /dev/null 2>&1 && source <(gh completion -s bash)
-command -v glab > /dev/null 2>&1 && source <(glab completion -s bash)
-command -v helm > /dev/null 2>&1 && source <(helm completion bash)
-command -v kubectl > /dev/null 2>&1 && source <(kubectl completion bash)
-command -v uv > /dev/null 2>&1 && source <(uv generate-shell-completion bash)
+if [ -r "$HOME/.config/shell/local" ]; then . "$HOME/.config/shell/local"; fi

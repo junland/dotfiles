@@ -1,0 +1,27 @@
+# Shared by interactive Bash and Zsh.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export GOPATH="${GOPATH:-$XDG_DATA_HOME/go}"
+export CARGO_HOME="${CARGO_HOME:-$XDG_DATA_HOME/cargo}"
+export RUSTUP_HOME="${RUSTUP_HOME:-$XDG_DATA_HOME/rustup}"
+export NPM_CONFIG_USERCONFIG="${NPM_CONFIG_USERCONFIG:-$HOME/.config/npm/npmrc}"
+export HOMEBREW_NO_ENV_HINTS="${HOMEBREW_NO_ENV_HINTS:-1}"
+
+_dotfiles_prepend() {
+    case ":${PATH-}:" in
+        *":$1:"*) ;;
+        *) PATH="$1${PATH:+:$PATH}" ;;
+    esac
+}
+if [ -d "$HOME/.local/bin" ]; then _dotfiles_prepend "$HOME/.local/bin"; fi
+_dotfiles_prepend "${GOPATH%%:*}/bin"
+_dotfiles_prepend "$CARGO_HOME/bin"
+unset -f _dotfiles_prepend
+export PATH
+
+alias ansible-local='ansible -i "localhost," -c local'
+alias ansible-playbook-local='ansible-playbook -i "localhost," -c local'
+alias ansible-playbook-localhost='ansible-playbook-local'
+alias la='ls -A'
+alias ll='ls -alF'

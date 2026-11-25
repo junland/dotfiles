@@ -4,3 +4,12 @@ LICENSE
 .gitignore
 .gitattributes
 tests/
+{{ if eq .chezmoi.os "windows" }}
+.bashrc
+.zshrc
+.shell_prompt
+.config/shell
+.config/powershell/profile.ps1
+.terraformrc
+.terraform.d
+{{ end }}
