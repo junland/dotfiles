@@ -52,6 +52,11 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+# Eval for Linux Homebrew
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+fi
+
 # Setup program completion
 command -v aws_completer > /dev/null 2>&1 && complete -C aws_completer aws
 command -v fly > /dev/null 2>&1 && source <(fly completion --shell zsh)

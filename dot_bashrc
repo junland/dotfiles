@@ -30,6 +30,11 @@ HISTSIZE=3000
 SAVEHIST=3000
 HISTFILE="$HOME/.bash_history"
 
+# Eval for Linux Homebrew
+if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+fi
+
 # Setup program completion
 command -v aws_completer > /dev/null 2>&1 && complete -C aws_completer aws
 command -v fly > /dev/null 2>&1 && source <(fly completion --shell bash)
